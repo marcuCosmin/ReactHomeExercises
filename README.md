@@ -10,7 +10,7 @@ Welcome to the junior frontend developer interview home exercise. This repositor
    - Utilize the existing Input component to allow users to specify the number of users to fetch.
 
 2. **Live Search:**
-   - Implement a live search feature using the provided Input component to fetch user data from the [RandomUser API](https://randomuser.me/api?results={numberOfResults}) as users type.
+   - Implement a live search feature using the provided Input component to fetch user data from [RandomUser API](https://randomuser.me/api?results={numberOfResults}) while user is typing.
 
 3. **UserCard Component:**
    - Create UserCard component with the following requirements:
