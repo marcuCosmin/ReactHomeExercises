@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-interface User {
+export interface User {
   image: string;
   firstName: string;
   lastName: string;
-  id: string;
 }
 
 interface UserState {
@@ -29,9 +28,6 @@ interface APIResultUser {
   picture: {
     large: string;
     medium: string;
-  };
-  id: {
-    value: string;
   };
 }
 
@@ -83,11 +79,10 @@ export const fetchUsers = createAsyncThunk(
       };
     }
 
-    const users: User[] = jsonResponse.results.map(({ name, picture, id }) => ({
+    const users: User[] = jsonResponse.results.map(({ name, picture }) => ({
       firstName: name.first,
       lastName: name.last,
-      image: picture.medium,
-      id: id.value,
+      image: picture.large,
     }));
 
     const usersMatchingSearchQuery = filterUsers(users, searchQuery);
