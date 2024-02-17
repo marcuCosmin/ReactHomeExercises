@@ -1,10 +1,13 @@
-import { ThemeProvider } from "styled-components";
-import "./App.css";
-import { theme } from "./theme/theme";
+import { RouterProvider } from "react-router-dom";
+
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import { RouterProvider } from "react-router-dom";
+
 import { router } from "./routing/router";
+
+import "./App.css";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./theme/theme";
 
 /**
  *

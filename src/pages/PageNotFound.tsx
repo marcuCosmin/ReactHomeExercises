@@ -1,4 +1,5 @@
-import { FC } from "react";
+import type { FC } from "react";
+
 import { PageWrapper } from "./styles";
 
 export const PageNotFound: FC = () => (

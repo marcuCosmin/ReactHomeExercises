@@ -1,6 +1,8 @@
-import { FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
+
 import { StyledButton } from "./styles";
-import { ButtonVariants } from "./types";
+
+import type { ButtonVariants } from "./types";
 
 interface Props {
   children?: ReactNode;

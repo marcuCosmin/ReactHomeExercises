@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import { Theme } from "../../theme/types";
-import { ButtonVariants } from "./types";
+
+import type { Theme } from "../../theme/types";
+
+import type { ButtonVariants } from "./types";
 
 const getButtonStyles = (theme: Theme, variant?: ButtonVariants) => {
   switch (variant) {
