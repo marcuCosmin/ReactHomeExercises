@@ -12,3 +12,14 @@ export const StyledInput = styled.input`
     border-color: ${({ theme }) => theme.colors.secondary};
   }
 `;
+
+export const StyledLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const StyledError = styled.div`
+  color: red;
+  font-size: 12px;
+`;

@@ -4,6 +4,7 @@ interface User {
   image: string;
   firstName: string;
   lastName: string;
+  id: string;
 }
 
 interface UserState {
@@ -20,18 +21,82 @@ const initialState: UserState = {
 
 const baseAPIURL = "https://randomuser.me/api";
 
-interface JSONResponse {
-  results: User[];
+interface APIResultUser {
+  name: {
+    first: string;
+    last: string;
+  };
+  picture: {
+    large: string;
+    medium: string;
+  };
+  id: {
+    value: string;
+  };
 }
+
+interface JSONResponse {
+  results?: APIResultUser[];
+  error?: string;
+}
+
+interface ThunkArgs {
+  numberOfResults: number;
+  searchQuery: string;
+}
+
+const filterUsers = (users: User[], searchQuery: string) => {
+  const lowerCasedSearchQuery = searchQuery.toLowerCase();
+
+  const filteredUsers = users.filter(({ firstName, lastName }) => {
+    const firstNameMatched = firstName
+      .toLowerCase()
+      .includes(lowerCasedSearchQuery);
+    const lastNameMatched = lastName
+      .toLowerCase()
+      .includes(lowerCasedSearchQuery);
+
+    return firstNameMatched || lastNameMatched;
+  });
+
+  return filteredUsers;
+};
 
 export const fetchUsers = createAsyncThunk(
   "users/fetch",
-  async (numberOfResults: number) => {
+  async ({ numberOfResults, searchQuery }: ThunkArgs) => {
+    // based on the API's docs we could have used multiple queries to fetch whatever data is needed, but the tasks specifies to use this exact url with the below query
     const response = await fetch(`${baseAPIURL}?results=${numberOfResults}`);
 
     const jsonResponse: JSONResponse = await response.json();
 
-    return jsonResponse.results;
+    if (jsonResponse.error) {
+      return {
+        users: [],
+        error: jsonResponse.error,
+      };
+    }
+
+    if (!jsonResponse.results?.length) {
+      return {
+        users: [],
+      };
+    }
+
+    const users: User[] = jsonResponse.results.map(({ name, picture, id }) => ({
+      firstName: name.first,
+      lastName: name.last,
+      image: picture.medium,
+      id: id.value,
+    }));
+
+    const usersMatchingSearchQuery = filterUsers(users, searchQuery);
+
+    console.log(usersMatchingSearchQuery);
+
+    return {
+      users: usersMatchingSearchQuery,
+    };
   }
 );
 
@@ -50,8 +115,8 @@ const usersSlice = createSlice({
     });
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.loading = false;
-      state.error = "";
-      state.users = action.payload;
+      state.error = action.payload?.error || "";
+      state.users = action.payload?.users;
     });
   },
 });

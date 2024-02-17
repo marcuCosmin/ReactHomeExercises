@@ -1,11 +1,11 @@
-import { Input } from "../components/Input/Input";
+import { Search } from "../components/Search/Search";
 
 import { PageWrapper } from "./styles";
 
 export const Home = () => {
   return (
     <PageWrapper>
-      <Input />
+      <Search />
       {/* Slideshow should be rendered here */}
     </PageWrapper>
   );
