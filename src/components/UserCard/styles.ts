@@ -4,6 +4,7 @@ export const UserCardWrapper = styled.div`
   border-radius: 1rem;
   background-color: white;
   width: fit-content;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 `;
 
 export const StyledImage = styled.img`
@@ -14,5 +15,6 @@ export const StyledImage = styled.img`
 export const StyledFullName = styled.div`
   text-align: center;
   font-weight: bold;
-  width: 128px;
+  padding: 10px;
+  width: 108px;
 `;
